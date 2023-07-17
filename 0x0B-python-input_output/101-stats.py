@@ -31,18 +31,20 @@ try:
 
         pieces = line.split()
 
-        try:
-            status = int(pieces[-2])
+        if len(pieces) >= 2:
+            try:
+                status = int(pieces[-2])
 
-            if str(status) in status_codes.keys():
-                status_codes[str(status)] += 1
-        except ValueError:
-            pass
+                if str(status) in status_codes:
+                    status_codes[str(status)] += 1
+            except ValueError:
+                pass
 
-        try:
-            file_size += int(pieces[-1])
-        except FileNotFoundError:
-            pass
+        if len(pieces) >= 1:
+            try:
+                file_size += int(pieces[-1])
+            except ValueError:
+                pass
 
         lc += 1
 
@@ -50,3 +52,4 @@ try:
 except KeyboardInterrupt:
     print_info()
     raise
+
